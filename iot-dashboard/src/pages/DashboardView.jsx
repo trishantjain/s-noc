@@ -1181,22 +1181,22 @@ function DashboardView() {
 
           {/* LOG SECTION */}
           <div className="log-scroll h-64 w-full rounded-md border bg-black overflow-y-auto"
-              onScroll={handleScroll}
+            onScroll={handleScroll}
           >
             {/* <div
               className="p-3 "
             > */}
-              <div className="log-panel">
-                {Object.keys(logsByMac).length === 0 ? (
-                  <p>No logs in last 1 hour</p>
-                ) : (
-                  currentLogs.map((line, i) => (
-                    <pre key={i} className="log-line">{line}</pre>
-                  ))
-                )}
-              </div>
+            <div className="log-panel">
+              {Object.keys(logsByMac).length === 0 ? (
+                <p>No logs in last 1 hour</p>
+              ) : (
+                currentLogs.map((line, i) => (
+                  <pre key={i} className="log-line">{line}</pre>
+                ))
+              )}
+            </div>
 
-              <div ref={bottomRef} />
+            <div ref={bottomRef} />
             {/* </div> */}
           </div>
 
