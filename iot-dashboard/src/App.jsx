@@ -1,11 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './pages/Login';
-import DashboardView from './pages/DashboardView';
-import Dashboard from './pages/Dashboard';
-import AdminDashboard from './pages/AdminDashboard';
-import PrivateRoute from './components/PrivateRoute';
-import OfflinePrompt from './components/OfflinePrompt';
+import React, { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import Login from "./pages/Login";
+import DashboardView from "./pages/DashboardView";
+import Dashboard from "./pages/Dashboard";
+import AdminDashboard from "./pages/AdminDashboard";
+import PrivateRoute from "./components/PrivateRoute";
+import OfflinePrompt from "./components/OfflinePrompt";
+import InventoryPage from "./pages/InvertoryPage";
+import PerformancePage from "./pages/PerformancePage";
+import Navbar from "./components/Navbar";
+import BatteryStatusPage from "./pages/BatteryStatusPage";
 
 function App() {
   const [offlinePrompt, setOfflinePrompt] = useState(false);
@@ -14,9 +23,9 @@ function App() {
     const checkConnection = async () => {
       console.log("checking connection");
       try {
-        const res = await fetch('/ping', { method: 'GET' });
-        console.log('Ping response:', res.status);
-        if (!res.ok) throw new Error('Offline');
+        const res = await fetch("/ping", { method: "GET" });
+        console.log("Ping response:", res.status);
+        if (!res.ok) throw new Error("Offline");
         setOfflinePrompt(false);
       } catch {
         setOfflinePrompt(true);
@@ -31,6 +40,7 @@ function App() {
   return (
     <Router>
       <OfflinePrompt show={offlinePrompt} />
+      <Navbar />
       <Routes>
         <Route path="/" element={<Login />} />
 
@@ -38,7 +48,7 @@ function App() {
         <Route
           path="/dashboard"
           element={
-            <PrivateRoute allowedRoles={['user', 'block', 'gp']}>
+            <PrivateRoute allowedRoles={["user", "block", "gp"]}>
               <Dashboard />
             </PrivateRoute>
           }
@@ -48,7 +58,7 @@ function App() {
         <Route
           path="/device/:mac"
           element={
-            <PrivateRoute allowedRoles={['user', 'block', 'gp', 'admin']}>
+            <PrivateRoute allowedRoles={["user", "block", "gp", "admin"]}>
               <Dashboard />
             </PrivateRoute>
           }
@@ -58,8 +68,38 @@ function App() {
         <Route
           path="/admin"
           element={
-            <PrivateRoute allowedRoles={['admin']}>
+            <PrivateRoute allowedRoles={["admin"]}>
               <AdminDashboard />
+            </PrivateRoute>
+          }
+        />
+
+        {/* ✅ Inventory Dashboard */}
+        <Route
+          path="/inventory"
+          element={
+            <PrivateRoute allowedRoles={["admin"]}>
+              <InventoryPage />
+            </PrivateRoute>
+          }
+        />
+
+        {/* ✅ Performance Dashboard */}
+        <Route
+          path="/performance"
+          element={
+            <PrivateRoute allowedRoles={["admin"]}>
+              <PerformancePage />
+            </PrivateRoute>
+          }
+        />
+
+        {/* ✅ Battery Status Dashboard */}
+        <Route
+          path="/battery-status"
+          element={
+            <PrivateRoute allowedRoles={["admin"]}>
+              <BatteryStatusPage />
             </PrivateRoute>
           }
         />
@@ -72,4 +112,3 @@ function App() {
 }
 
 export default App;
-

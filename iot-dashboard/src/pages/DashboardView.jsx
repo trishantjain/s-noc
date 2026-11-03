@@ -107,71 +107,6 @@ function DashboardView() {
     }
   }, [macParam, deviceMeta, selectedMac]);
 
-  // console.log(import.meta.env.VITE_API_URL)
-  // console.log("latestR", latestReading.mainStatus)
-  // console.log('All properties:', Object.keys(latestReading));
-
-  // // WebSocket connection - FIXED VERSION
-  // useEffect(() => {
-  //   const connectWebSocket = () => {
-  //     console.log('🔄 Attempting WebSocket connection...');
-
-  //     // Use wss:// if in production, ws:// for development
-  //     const wsUrl = process.env.NODE_ENV === 'production'
-  //       ? `wss://${window.location.host}`
-  //       : 'ws://localhost:8080';
-
-  //     const ws = new WebSocket(wsUrl);
-  //     wsRef.current = ws;
-
-  //     ws.onopen = () => {
-  //       console.log('✅ WebSocket connected successfully');
-  //     };
-
-  //     ws.onmessage = (event) => {
-  //       try {
-  //         const message = JSON.parse(event.data);
-  //         console.log('📨 WebSocket message:', message.type);
-
-  //         if (message.type === 'NEW_READING') {
-  //           const newReading = message.data;
-  //           setReadings(prev => {
-  //             const filtered = prev.filter(r => r.mac !== newReading.mac);
-  //             return [...filtered, newReading].slice(-400);
-  //           });
-  //         }
-  //       } catch (err) {
-  //         console.error('❌ WebSocket message parse error:', err);
-  //       }
-  //     };
-
-  //     ws.onerror = (error) => {
-  //       console.error('❌ WebSocket connection error:', error);
-  //     };
-
-  //     ws.onclose = (event) => {
-  //       console.log(`🔌 WebSocket disconnected (code: ${event.code}, reason: ${event.reason})`);
-
-  //       // Auto-reconnect after 3 seconds
-  //       setTimeout(() => {
-  //         console.log('🔄 Attempting to reconnect WebSocket...');
-  //         connectWebSocket();
-  //       }, 3000);
-  //     };
-  //   };
-
-  //   // Initial connection
-  //   connectWebSocket();
-
-  //   // Cleanup
-  //   return () => {
-  //     if (wsRef.current) {
-  //       console.log('🛑 Closing WebSocket connection');
-  //       wsRef.current.close(1000, 'Component unmounting');
-  //     }
-  //   };
-  // }, []);
-
   // UseEffect for fetching Data
   useEffect(() => {
     // console.log('🚨Starting data fetch interval (5s)🚨');
@@ -643,27 +578,6 @@ function DashboardView() {
     },
   ]
 
-  // const tempCalibrationTable = [
-  //   { min: 0, max: 10, factor: 0 },
-  //   { min: 11, max: 20, factor: 0 },
-  //   { min: 21, max: 30, factor: 0 },
-  //   { min: 31, max: 40, factor: 0.05 },
-  //   { min: 41, max: 50, factor: 0.07 },
-  //   { min: 51, max: 60, factor: 0.09 },
-  //   { min: 61, max: 70, factor: 0.10 },
-  // ];
-
-  // function calibrateTemperature(temp) {
-  //   if (typeof temp !== "number") return temp;
-
-  //   const range = tempCalibrationTable.find(
-  //     r => temp >= r.min && temp <= r.max
-  //   );
-
-  //   if (!range) return temp;
-
-  //   return temp * (1 + range.factor);
-  // }
 
   return (
     <>
@@ -723,6 +637,7 @@ function DashboardView() {
 
       <div className="dashboard">
         <div className="panel">
+
           <h2 className="selected-heading">
             📟 Selected Rack: {selectedMac && <span> {selectedDevice}</span>}
             <div className="flex items-center gap-2">
@@ -734,6 +649,7 @@ function DashboardView() {
               <Label htmlFor="alarm-mode">Alarm</Label>
             </div>
           </h2>
+          
           {latestReading && (
             <div>
               <div className="tabs">
@@ -1180,7 +1096,7 @@ function DashboardView() {
 
 
           {/* LOG SECTION */}
-          <div className="log-scroll h-64 w-full rounded-md border bg-black overflow-y-auto"
+          <div className="w-full h-64 overflow-y-auto bg-black border rounded-md log-scroll"
             onScroll={handleScroll}
           >
             {/* <div

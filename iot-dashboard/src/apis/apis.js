@@ -1,0 +1,9 @@
+export const InventoryAPI = "api/nms/inventory?page=1&limit=50";
+export const PerformanceAPI = "api/nms/performance?page=1&limit=50";
+export const AlarmAPI = "api/alarms/current?severity=critical";
+export const BatteryStatusAPI = "api/nms/battery-backup-alarms?page=1&limit=50";
+export const MaintainanceAPI = "api/nms/downtime?page=1&limit=50";
+export const CreateDowntimeAPI = "api/nms/downtime";
+export const DeleteDowntimeAPI = "api/nms/downtime";
+export const UpdateDowntimeAPI = "api/nms/downtime";
+export const HistoricalAlarmAPI = "api/nms/alarms";

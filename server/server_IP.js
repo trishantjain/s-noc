@@ -14,11 +14,15 @@ const path = require("path");
 const axios = require('axios');
 const { spawn } = require('child_process');
 
+const emsRoutes = require("./services/ems_API")
+
 const app = express();
 const connectedDevices = new Map();
 app.use(bodyParser.json());
 const cors = require("cors");
 app.use(cors());
+
+app.use("/ems", emsRoutes)
 
 
 const logStreams = {};
